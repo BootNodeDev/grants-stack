@@ -126,10 +126,16 @@ function ListPrograms() {
       </header>
       <main className="container mx-5 p-2 md:px-20">
         <CardsContainer>
+          {fetchProgramsStatus === ProgressStatus.IS_ERROR && (
+            <div className="text-red-500">
+              There was a problem trying to fetch your programs!
+            </div>
+          )}
           {isSuccess && hasNoPrograms() && startAProgramCard}
           {programList}
         </CardsContainer>
       </main>
+
       {fetchProgramsStatus === ProgressStatus.IN_PROGRESS && (
         <Spinner text="We're fetching your Programs." />
       )}

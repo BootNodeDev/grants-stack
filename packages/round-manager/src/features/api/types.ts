@@ -136,6 +136,11 @@ export interface ApplicationMetadata {
   requirements: ProjectRequirements;
 }
 
+export enum RoundCategory {
+  QuadraticFunding,
+  Direct,
+}
+
 export interface Round {
   /**
    * The on-chain unique round ID

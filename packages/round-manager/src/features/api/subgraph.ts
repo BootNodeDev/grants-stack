@@ -1,7 +1,9 @@
 import { graphql_fetch } from "common";
+import { RoundCategory } from "./types";
 
 export async function getCurrentSubgraphBlockNumber(
-  chainId: number
+  chainId: number,
+  roundCategory?: RoundCategory
 ): Promise<number> {
   const res = await graphql_fetch(
     `
@@ -14,7 +16,10 @@ export async function getCurrentSubgraphBlockNumber(
         }
       }
     `,
-    chainId
+    chainId,
+    {},
+    false,
+    roundCategory
   );
   return res.data._meta.block.number;
 }
@@ -22,12 +27,19 @@ export async function getCurrentSubgraphBlockNumber(
 export async function waitForSubgraphSyncTo(
   chainId: number,
   blockNumber: number,
-  pollIntervalInMs = 1000
+  pollIntervalInMs = 1000,
+  roundCategory?: RoundCategory
 ): Promise<number> {
-  let currentBlockNumber = await getCurrentSubgraphBlockNumber(chainId);
+  let currentBlockNumber = await getCurrentSubgraphBlockNumber(
+    chainId,
+    roundCategory
+  );
   while (currentBlockNumber < blockNumber) {
     await wait(pollIntervalInMs);
-    currentBlockNumber = await getCurrentSubgraphBlockNumber(chainId);
+    currentBlockNumber = await getCurrentSubgraphBlockNumber(
+      chainId,
+      roundCategory
+    );
   }
   return currentBlockNumber;
 }

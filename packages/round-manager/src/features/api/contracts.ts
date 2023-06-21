@@ -52,6 +52,43 @@ export const ERC20Contract: Contract = {
 };
 
 /************************/
+/* ===== Registry ====== */
+/************************/
+
+/* RegistryFactory  */
+export const registryFactoryContract = (
+  chainId: ChainId | undefined
+): string => {
+  let address;
+
+  switch (chainId) {
+    case ChainId.MAINNET: {
+      address = "";
+      break;
+    }
+    case ChainId.OPTIMISM_MAINNET_CHAIN_ID: {
+      address = "";
+      break;
+    }
+    case ChainId.FANTOM_MAINNET_CHAIN_ID: {
+      address = "";
+      break;
+    }
+    case ChainId.FANTOM_TESTNET_CHAIN_ID: {
+      address = "";
+      break;
+    }
+    case ChainId.GOERLI_CHAIN_ID:
+    default: {
+      address = "0x9Cd9211c719693610F2cF715F03a4cc3EAe96132";
+      break;
+    }
+  }
+
+  return address;
+};
+
+/************************/
 /* ===== Program ====== */
 /************************/
 
@@ -102,7 +139,8 @@ export const programImplementationContract: Contract = {
 
 /* RoundFactory  */
 export const roundFactoryContract = (
-  chainId: ChainId | undefined
+  chainId: ChainId | undefined,
+  directRound = false
 ): Contract => {
   let address;
 
@@ -125,14 +163,18 @@ export const roundFactoryContract = (
     }
     case ChainId.GOERLI_CHAIN_ID:
     default: {
-      address = "0x24F9EBFAdf095e0afe3d98635ee83CD72e49B5B0";
+      address = directRound
+        ? "0x7aeb4408B198F8fbEb87007B82d863416dF3C8Af"
+        : "0x24F9EBFAdf095e0afe3d98635ee83CD72e49B5B0";
       break;
     }
   }
 
   return {
     address: address,
-    abi: abi.roundFactory,
+    // For direct grants we have implemented typechain so it is not needed to export ABIs anymore.
+    // that's why we are
+    abi: directRound ? [] : abi.roundFactory,
   };
 };
 
