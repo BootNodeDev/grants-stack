@@ -120,15 +120,17 @@ export default function ViewProgram() {
                         data-testid="application-time-period"
                       >
                         <span data-testid="application-start-time-period">
-                          {parsedRoundInfo.application.iso.start}&nbsp;
+                          {parsedRoundInfo.application.iso.start}
                         </span>
+                        &nbsp;
                         <span className="text-grey-400">
                           {parsedRoundInfo.application.utc.start}
                         </span>
                         <span className="mx-1">-</span>
                         <span data-testid="application-end-time-period">
-                          {parsedRoundInfo.application.iso.end}&nbsp;
+                          {parsedRoundInfo.application.iso.end}
                         </span>
+                        &nbsp;
                         <span className="text-grey-400">
                           {parsedRoundInfo.application.utc.end}
                         </span>
